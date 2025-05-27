@@ -1,3 +1,4 @@
+import json
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
@@ -50,10 +51,9 @@ def query_product(name: str) -> str:
     Returns:
         str: A formatted string containing the product's information.
     """
-    ctx = mcp.get_context()
-    session: Session = ctx.request_context.lifespan_context["session"]  # type: ignore
+    ctx: AppContext = mcp.get_context().request_context.lifespan_context  # type: ignore
     product, created = get_or_create(
-        session=session,
+        session=ctx.session,
         model=Product,
         bar_code="1234567890123",
         defaults={
@@ -64,15 +64,17 @@ def query_product(name: str) -> str:
             "manufacturer": "Example Corp",
         },
     )
-    return f"""
-        Product information:
-            name: {product.name}
-            category: {product.category}
-            price: {product.price}
-            expiry_date: {product.expiry_date}
-            manufacturer: {product.manufacturer}
-            bar_code: {product.bar_code}
-    """
+    return json.dumps(
+        {
+            "text": f"""Product information:
+                name: {product.name}
+                category: {product.category}
+                price: {product.price}
+                expiry_date: {product.expiry_date}
+                manufacturer: {product.manufacturer}
+                bar_code: {product.bar_code}"""
+        }
+    )
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 from contextlib import AsyncExitStack
 
@@ -49,7 +50,7 @@ class MCPClient:
         if not self.session:
             return "Error, no client session available"
 
-        response = await self.session.list_tools()
+        tools_list = await self.session.list_tools()
         tools_definition: types.ToolListUnion = [
             types.Tool(
                 function_declarations=[
@@ -60,7 +61,7 @@ class MCPClient:
                     )
                 ]
             )
-            for tool in response.tools
+            for tool in tools_list.tools
         ]
 
         gemini_response = self.gemini_client.models.generate_content(
@@ -71,7 +72,6 @@ class MCPClient:
                 tools=tools_definition,
             ),
         )
-        print("Response from gemini: " + str(gemini_response.to_json_dict()))
 
         # Process response and handle tool calls
         final_text: list[str] = []
@@ -100,7 +100,7 @@ class MCPClient:
             )
             for content in function_call_result.content:
                 if isinstance(content, MCPTypes.TextContent):
-                    final_text.append(content.text)
+                    final_text.append(json.loads(content.text)["text"])
 
         return "\n".join(final_text)
 
