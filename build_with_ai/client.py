@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import os
 from contextlib import AsyncExitStack
 
@@ -28,10 +29,10 @@ class MCPClient:
         """
 
         if self._connected:
-            print("Já conectado a um servidor MCP.")
+            logging.warning("Já conectado a um servidor MCP.")
             return
 
-        print(f"Conectando ao servidor MCP: {server_module_name}...")
+        logging.info(f"Conectando ao servidor MCP: {server_module_name}...")
         server_params = StdioServerParameters(
             command="uv", args=["run", "python", "-m", server_module_name], env=None
         )
@@ -44,9 +45,10 @@ class MCPClient:
         )
 
         await self.session.initialize()
+        self._connected = True
 
         response = await self.session.list_tools()
-        print(
+        logging.info(
             "\nConectado ao servidor com as seguintes ferramentas:",
             [tool.name for tool in response.tools],
         )
@@ -151,7 +153,7 @@ class MCPClient:
             function_call_result = await self.session.call_tool(
                 name=function_call.name, arguments=function_call.args
             )
-            final_text.append(
+            logging.debug(
                 f"[Chamando ferramenta {function_call.name} com os argumentos {function_call.args}]"
             )
 
@@ -224,17 +226,17 @@ class MCPClient:
                 print("\n" + response)
 
             except Exception as e:
-                print(f"\nErro: {str(e)}")
+                logging.error(f"\nErro: {str(e)}")
 
     async def cleanup(self):
         """Limpa recursos e fecha a sessão do cliente MCP"""
         if self._connected:
-            print("Fechando a sessão do cliente MCP...")
+            logging.info("Fechando a sessão do cliente MCP...")
             try:
                 await self.exit_stack.aclose()
-                print("Sessão do cliente MCP fechada com sucesso.")
+                logging.info("Sessão do cliente MCP fechada com sucesso.")
             except Exception as e:
-                print(f"Erro ao fechar a sessão do cliente MCP: {str(e)}")
+                logging.error(f"Erro ao fechar a sessão do cliente MCP: {str(e)}")
             finally:
                 self._connected = False
                 self.session = None

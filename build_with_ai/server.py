@@ -1,4 +1,3 @@
-import json
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
@@ -38,7 +37,7 @@ mcp = FastMCP("build-with-ai", lifespan=app_lifespan)
 @mcp.tool(
     description="Consulta um produto pelo nome e retorna suas informações como uma string formatada"
 )
-def query_product(nome: str) -> str:
+def query_product(name: str) -> str:
     """
     Consulta um produto pelo nome e retorna suas informações como uma string formatada.
 
@@ -47,7 +46,7 @@ def query_product(nome: str) -> str:
     A string retornada contém o nome, categoria, preço, data de validade, fabricante e código de barras do produto.
 
     Args:
-        nome (str): O nome do produto a ser consultado.
+        name (str): O nome do produto a ser consultado.
 
     Returns:
         str: Uma string formatada contendo as informações do produto.

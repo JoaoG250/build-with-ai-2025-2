@@ -1,3 +1,4 @@
+import logging
 import sys
 from contextlib import asynccontextmanager
 
@@ -23,7 +24,7 @@ async def lifespan(app: FastAPI):
     try:
         await mcp_client.connect_to_server("build_with_ai.server")
     except Exception as e:
-        print(f"Erro ao conectar com o servidor MCP: {str(e)}")
+        logging.error(f"Erro ao conectar com o servidor MCP: {str(e)}")
         sys.exit(1)
 
     yield
@@ -62,7 +63,7 @@ async def chat_endpoint(chat_query: ChatQuery):
         response_text = await mcp_client.process_query(user_query)
         return JSONResponse(content={"response": response_text})
     except Exception as e:
-        print(f"Erro ao processar a consulta: {str(e)}")
+        logging.error(f"Erro ao processar a consulta: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro ao processar a consulta.")
 
 
