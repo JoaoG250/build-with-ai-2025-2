@@ -1,0 +1,470 @@
+[
+  {
+    "name": "Coca-Cola",
+    "category": "Refrigerante",
+    "price": 7.99,
+    "bar_code": "6344296607070",
+    "expiry_date": "2025-12-31T00:00:00",
+    "manufacturer": "Coca-Cola Company",
+    "id": null
+  },
+  {
+    "name": "Pepsi",
+    "category": "Refrigerante",
+    "price": 6.99,
+    "bar_code": "6992475679299",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "PepsiCo",
+    "id": null
+  },
+  {
+    "name": "Fanta",
+    "category": "Refrigerante",
+    "price": 5.99,
+    "bar_code": "8231630896832",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Coca-Cola Company",
+    "id": null
+  },
+  {
+    "name": "Sprite",
+    "category": "Refrigerante",
+    "price": 4.99,
+    "bar_code": "8582277429690",
+    "expiry_date": "2025-09-30T00:00:00",
+    "manufacturer": "Coca-Cola Company",
+    "id": null
+  },
+  {
+    "name": "Guaraná Antarctica",
+    "category": "Refrigerante",
+    "price": 5.49,
+    "bar_code": "1786238206525",
+    "expiry_date": "2025-08-31T00:00:00",
+    "manufacturer": "Ambev",
+    "id": null
+  },
+  {
+    "name": "Schweppes Citrus",
+    "category": "Refrigerante",
+    "price": 4.49,
+    "bar_code": "4390082665574",
+    "expiry_date": "2025-07-31T00:00:00",
+    "manufacturer": "Coca-Cola Company",
+    "id": null
+  },
+  {
+    "name": "Dr Pepper",
+    "category": "Refrigerante",
+    "price": 8.49,
+    "bar_code": "1188953937338",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "Keurig Dr Pepper",
+    "id": null
+  },
+  {
+    "name": "Arroz Branco Camil",
+    "category": "Arroz",
+    "price": 19.99,
+    "bar_code": "4514983845453",
+    "expiry_date": "2025-12-31T00:00:00",
+    "manufacturer": "Camil Alimentos",
+    "id": null
+  },
+  {
+    "name": "Arroz Integral Tio João",
+    "category": "Arroz",
+    "price": 22.99,
+    "bar_code": "8165635156957",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "Tio João",
+    "id": null
+  },
+  {
+    "name": "Arroz Parboilizado Tio João",
+    "category": "Arroz",
+    "price": 20.49,
+    "bar_code": "9897798776523",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Tio João",
+    "id": null
+  },
+  {
+    "name": "Arroz Basmati Royal",
+    "category": "Arroz",
+    "price": 29.99,
+    "bar_code": "1237459072448",
+    "expiry_date": "2025-09-30T00:00:00",
+    "manufacturer": "Royal",
+    "id": null
+  },
+  {
+    "name": "Arroz Jasmine",
+    "category": "Arroz",
+    "price": 24.99,
+    "bar_code": "7755630187644",
+    "expiry_date": "2025-08-31T00:00:00",
+    "manufacturer": "Jasmine",
+    "id": null
+  },
+  {
+    "name": "Feijão Carioca Tio João",
+    "category": "Feijão",
+    "price": 8.99,
+    "bar_code": "9808749700628",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "Tio João",
+    "id": null
+  },
+  {
+    "name": "Feijão Preto Camil",
+    "category": "Feijão",
+    "price": 9.49,
+    "bar_code": "1563973367822",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Camil Alimentos",
+    "id": null
+  },
+  {
+    "name": "Feijão Vermelho Jasmine",
+    "category": "Feijão",
+    "price": 10.99,
+    "bar_code": "5781221044695",
+    "expiry_date": "2025-09-30T00:00:00",
+    "manufacturer": "Jasmine",
+    "id": null
+  },
+  {
+    "name": "Feijão Branco Tio João",
+    "category": "Feijão",
+    "price": 7.99,
+    "bar_code": "8361955216196",
+    "expiry_date": "2025-08-31T00:00:00",
+    "manufacturer": "Tio João",
+    "id": null
+  },
+  {
+    "name": "Feijão Fradinho Camil",
+    "category": "Feijão",
+    "price": 8.49,
+    "bar_code": "8836053173809",
+    "expiry_date": "2025-07-31T00:00:00",
+    "manufacturer": "Camil Alimentos",
+    "id": null
+  },
+  {
+    "name": "Macarrão Instantâneo Nissin",
+    "category": "Macarrão",
+    "price": 2.49,
+    "bar_code": "9454666820275",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Nissin Foods",
+    "id": null
+  },
+  {
+    "name": "Macarrão Espaguete Barilla",
+    "category": "Macarrão",
+    "price": 5.99,
+    "bar_code": "1761638098569",
+    "expiry_date": "2025-09-30T00:00:00",
+    "manufacturer": "Barilla",
+    "id": null
+  },
+  {
+    "name": "Macarrão Penne De Cecco",
+    "category": "Macarrão",
+    "price": 6.49,
+    "bar_code": "1043884310156",
+    "expiry_date": "2025-08-31T00:00:00",
+    "manufacturer": "De Cecco",
+    "id": null
+  },
+  {
+    "name": "Macarrão Talharim Renata",
+    "category": "Macarrão",
+    "price": 4.99,
+    "bar_code": "9466231204829",
+    "expiry_date": "2025-07-31T00:00:00",
+    "manufacturer": "Renata",
+    "id": null
+  },
+  {
+    "name": "Macarrão Fusilli Dona Benta",
+    "category": "Macarrão",
+    "price": 3.99,
+    "bar_code": "7892657074971",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "Dona Benta",
+    "id": null
+  },
+  {
+    "name": "Mostarda Heinz",
+    "category": "Mostarda",
+    "price": 5.49,
+    "bar_code": "5541184532851",
+    "expiry_date": "2025-08-31T00:00:00",
+    "manufacturer": "Heinz",
+    "id": null
+  },
+  {
+    "name": "Mostarda Dijon Maille",
+    "category": "Mostarda",
+    "price": 7.99,
+    "bar_code": "2154723898516",
+    "expiry_date": "2025-07-31T00:00:00",
+    "manufacturer": "Maille",
+    "id": null
+  },
+  {
+    "name": "Mostarda Amarela French's",
+    "category": "Mostarda",
+    "price": 4.49,
+    "bar_code": "2760332736806",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "French's",
+    "id": null
+  },
+  {
+    "name": "Ketchup Hellmann's",
+    "category": "Ketchup",
+    "price": 6.99,
+    "bar_code": "7294885812851",
+    "expiry_date": "2025-07-31T00:00:00",
+    "manufacturer": "Unilever",
+    "id": null
+  },
+  {
+    "name": "Ketchup Heinz",
+    "category": "Ketchup",
+    "price": 5.99,
+    "bar_code": "6409936527389",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "Heinz",
+    "id": null
+  },
+  {
+    "name": "Ketchup Pomarola",
+    "category": "Ketchup",
+    "price": 4.99,
+    "bar_code": "4270788338102",
+    "expiry_date": "2025-05-31T00:00:00",
+    "manufacturer": "Pomarola",
+    "id": null
+  },
+  {
+    "name": "Maionese Hellmann's",
+    "category": "Maionese",
+    "price": 7.49,
+    "bar_code": "6074229038930",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "Unilever",
+    "id": null
+  },
+  {
+    "name": "Maionese Arisco",
+    "category": "Maionese",
+    "price": 6.49,
+    "bar_code": "4156670678082",
+    "expiry_date": "2025-05-31T00:00:00",
+    "manufacturer": "Arisco",
+    "id": null
+  },
+  {
+    "name": "Maionese Quero",
+    "category": "Maionese",
+    "price": 5.99,
+    "bar_code": "5939424807427",
+    "expiry_date": "2025-04-30T00:00:00",
+    "manufacturer": "Quero",
+    "id": null
+  },
+  {
+    "name": "Azeite de Oliva Gallo",
+    "category": "Azeite",
+    "price": 15.99,
+    "bar_code": "4928960472783",
+    "expiry_date": "2025-08-31T00:00:00",
+    "manufacturer": "Gallo",
+    "id": null
+  },
+  {
+    "name": "Azeite de Oliva Andorinha",
+    "category": "Azeite",
+    "price": 12.99,
+    "bar_code": "2343026653399",
+    "expiry_date": "2025-07-31T00:00:00",
+    "manufacturer": "Andorinha",
+    "id": null
+  },
+  {
+    "name": "Azeite de Oliva Borges",
+    "category": "Azeite",
+    "price": 18.49,
+    "bar_code": "5511621208765",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "Borges",
+    "id": null
+  },
+  {
+    "name": "Açúcar União",
+    "category": "Açúcar",
+    "price": 4.99,
+    "bar_code": "3520844076551",
+    "expiry_date": "2025-07-31T00:00:00",
+    "manufacturer": "União",
+    "id": null
+  },
+  {
+    "name": "Açúcar Cristal Camil",
+    "category": "Açúcar",
+    "price": 3.99,
+    "bar_code": "2061313559319",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "Camil Alimentos",
+    "id": null
+  },
+  {
+    "name": "Sal Refinado Cisne",
+    "category": "Sal",
+    "price": 2.99,
+    "bar_code": "8646375815798",
+    "expiry_date": "2025-06-30T00:00:00",
+    "manufacturer": "Cisne",
+    "id": null
+  },
+  {
+    "name": "Sal Grosso Salinas",
+    "category": "Sal",
+    "price": 3.49,
+    "bar_code": "4524867756889",
+    "expiry_date": "2025-05-31T00:00:00",
+    "manufacturer": "Salinas",
+    "id": null
+  },
+  {
+    "name": "Café Pilão",
+    "category": "Café",
+    "price": 9.99,
+    "bar_code": "9621686364586",
+    "expiry_date": "2025-12-31T00:00:00",
+    "manufacturer": "Pilão",
+    "id": null
+  },
+  {
+    "name": "Café Nescafé Clássico",
+    "category": "Café",
+    "price": 12.49,
+    "bar_code": "7573367131620",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "Nestlé",
+    "id": null
+  },
+  {
+    "name": "Café Melitta Tradicional",
+    "category": "Café",
+    "price": 10.99,
+    "bar_code": "2158778219508",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Melitta",
+    "id": null
+  },
+  {
+    "name": "Detergente Ypê",
+    "category": "Detergente",
+    "price": 2.49,
+    "bar_code": "6670195361440",
+    "expiry_date": "2025-12-31T00:00:00",
+    "manufacturer": "Ypê",
+    "id": null
+  },
+  {
+    "name": "Detergente Limpol",
+    "category": "Detergente",
+    "price": 1.99,
+    "bar_code": "2685248023924",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "Limpol",
+    "id": null
+  },
+  {
+    "name": "Detergente Pinho Sol",
+    "category": "Detergente",
+    "price": 3.49,
+    "bar_code": "6439102482426",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Pinho Sol",
+    "id": null
+  },
+  {
+    "name": "Sabonete Dove",
+    "category": "Sabonete",
+    "price": 3.49,
+    "bar_code": "8264676460024",
+    "expiry_date": "2025-12-31T00:00:00",
+    "manufacturer": "Unilever",
+    "id": null
+  },
+  {
+    "name": "Sabonete Lux",
+    "category": "Sabonete",
+    "price": 2.99,
+    "bar_code": "6434182885689",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "Unilever",
+    "id": null
+  },
+  {
+    "name": "Sabonete Granado",
+    "category": "Sabonete",
+    "price": 4.99,
+    "bar_code": "3974852011626",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Granado",
+    "id": null
+  },
+  {
+    "name": "Shampoo Pantene",
+    "category": "Shampoo",
+    "price": 15.99,
+    "bar_code": "6577376038414",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "Procter & Gamble",
+    "id": null
+  },
+  {
+    "name": "Shampoo Seda",
+    "category": "Shampoo",
+    "price": 12.99,
+    "bar_code": "7526625459225",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Unilever",
+    "id": null
+  },
+  {
+    "name": "Cerveja Skol",
+    "category": "Cerveja",
+    "price": 3.49,
+    "bar_code": "8214965033413",
+    "expiry_date": "2025-12-31T00:00:00",
+    "manufacturer": "Ambev",
+    "id": null
+  },
+  {
+    "name": "Cerveja Brahma",
+    "category": "Cerveja",
+    "price": 3.99,
+    "bar_code": "5281329063535",
+    "expiry_date": "2025-11-30T00:00:00",
+    "manufacturer": "Ambev",
+    "id": null
+  },
+  {
+    "name": "Cerveja Antarctica",
+    "category": "Cerveja",
+    "price": 3.49,
+    "bar_code": "9808736521212",
+    "expiry_date": "2025-10-31T00:00:00",
+    "manufacturer": "Ambev",
+    "id": null
+  }
+]

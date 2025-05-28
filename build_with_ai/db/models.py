@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from pydantic import BaseModel
 from sqlmodel import Field, SQLModel
 
 
@@ -11,3 +12,13 @@ class Product(SQLModel, table=True):
     bar_code: str = Field(nullable=False, unique=True)
     expiry_date: datetime = Field(nullable=False)
     manufacturer: str = Field(nullable=False)
+
+
+class ProductRead(BaseModel):
+    id: int | None
+    name: str
+    category: str
+    price: float
+    bar_code: str
+    expiry_date: datetime
+    manufacturer: str

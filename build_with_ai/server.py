@@ -7,6 +7,7 @@ from mcp.server.fastmcp import FastMCP
 from sqlmodel import Session
 
 from build_with_ai.db.models import Product
+from build_with_ai.db.seed import seed_products
 from build_with_ai.db.session import get_session, init_db
 from build_with_ai.db.utils import get_or_create
 
@@ -19,8 +20,9 @@ class AppContext:
 @asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
     """Gerencia o ciclo de vida da aplicação com contexto tipado"""
-
+    init_db()
     session = get_session()
+    seed_products(session)
     try:
         yield AppContext(session=session)
         session.commit()
@@ -75,5 +77,4 @@ def query_product(name: str) -> str:
 
 
 if __name__ == "__main__":
-    init_db()
     mcp.run(transport="stdio")
