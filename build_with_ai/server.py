@@ -64,17 +64,13 @@ def query_product(name: str) -> str:
             "manufacturer": "Example Corp",
         },
     )
-    return json.dumps(
-        {
-            "text": f"""Product information:
-                name: {product.name}
-                category: {product.category}
-                price: {product.price}
-                expiry_date: {product.expiry_date}
-                manufacturer: {product.manufacturer}
-                bar_code: {product.bar_code}"""
-        }
-    )
+    return f"""Product information:
+        name: {product.name}
+        category: {product.category}
+        price: {product.price}
+        expiry_date: {product.expiry_date}
+        manufacturer: {product.manufacturer}
+        bar_code: {product.bar_code}"""
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 import asyncio
-import json
 import os
 from contextlib import AsyncExitStack
 
@@ -38,11 +37,9 @@ class MCPClient:
         await self.session.initialize()
 
         response = await self.session.list_tools()
-        tools = response.tools
-        print("\nConnected to server with tools:", [tool.name for tool in tools])
-        for tool in tools:
-            print(tool.description)
-            print(tool.inputSchema)
+        print(
+            "\nConnected to server with tools:", [tool.name for tool in response.tools]
+        )
 
     async def process_query(self, query: str) -> str:
         """Process a query using Gemini and available tools"""
@@ -64,11 +61,16 @@ class MCPClient:
             for tool in tools_list.tools
         ]
 
+        conversation_history: list[types.Content] = []
+        # Add the user query to the conversation history
+        conversation_history.append(
+            types.Content(role="user", parts=[types.Part(text=query)])
+        )
+
         gemini_response = self.gemini_client.models.generate_content(
             model="gemini-2.5-pro-preview-05-06",
-            contents=query,
+            contents=conversation_history,
             config=types.GenerateContentConfig(
-                temperature=0,
                 tools=tools_definition,
             ),
         )
@@ -84,11 +86,15 @@ class MCPClient:
                 and response.candidates[0].content
                 and response.candidates[0].content.parts
             ):
-                return response.candidates[0].content.parts[0].function_call
+                # Ensure it's a function call part
+                for part in response.candidates[0].content.parts:
+                    if part.function_call:
+                        return part.function_call
             return None
 
-        if gemini_response.text:
-            final_text.append(gemini_response.text)
+        # Add Gemini's response to the conversation history
+        if gemini_response.candidates and gemini_response.candidates[0].content:
+            conversation_history.append(gemini_response.candidates[0].content)
 
         function_call = get_function_call(gemini_response)
         if function_call and function_call.name:
@@ -98,9 +104,50 @@ class MCPClient:
             final_text.append(
                 f"[Calling tool {function_call.name} with args {function_call.args}]"
             )
+
+            # Append function call and result of the function execution to contents
+            conversation_history.append(
+                types.Content(
+                    role="model", parts=[types.Part(function_call=function_call)]
+                )
+            )  # Append the model's function call message
+
             for content in function_call_result.content:
                 if isinstance(content, MCPTypes.TextContent):
-                    final_text.append(json.loads(content.text)["text"])
+                    conversation_history.append(
+                        types.Content(
+                            role="user",
+                            parts=[
+                                types.Part.from_function_response(
+                                    name=function_call.name,
+                                    response={"result": content.text},
+                                )
+                            ],
+                        )
+                    )  # Append the function response
+                # Handle other MCPTypes if necessary, e.g., FileContent, BinaryContent
+
+            # Second Gemini query with tool result
+            second_gemini_response = self.gemini_client.models.generate_content(
+                model="gemini-2.5-pro-preview-05-06",
+                contents=conversation_history,  # Send the updated full history
+                config=types.GenerateContentConfig(
+                    tools=tools_definition,
+                ),
+            )
+            # Add the second Gemini response to the conversation history
+            if (
+                second_gemini_response.candidates
+                and second_gemini_response.candidates[0].content
+            ):
+                conversation_history.append(
+                    second_gemini_response.candidates[0].content
+                )
+                if second_gemini_response.text:
+                    final_text.append(second_gemini_response.text)
+
+        elif gemini_response.text:
+            final_text.append(gemini_response.text)
 
         return "\n".join(final_text)
 
