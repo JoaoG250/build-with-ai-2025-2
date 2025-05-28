@@ -14,6 +14,7 @@ class MCPClient:
         self.session: ClientSession | None = None
         self.exit_stack = AsyncExitStack()
         self.gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+        self._connected = False
 
     async def connect_to_server(self, server_module_name: str):
         """Conecta-se a um servidor MCP
@@ -26,14 +27,18 @@ class MCPClient:
             server_module_name: Nome do módulo Python para o servidor
         """
 
+        if self._connected:
+            print("Já conectado a um servidor MCP.")
+            return
+
+        print(f"Conectando ao servidor MCP: {server_module_name}...")
         server_params = StdioServerParameters(
             command="uv", args=["run", "python", "-m", server_module_name], env=None
         )
 
-        stdio_transport = await self.exit_stack.enter_async_context(
+        self.stdio, self.write = await self.exit_stack.enter_async_context(
             stdio_client(server_params)
         )
-        self.stdio, self.write = stdio_transport
         self.session = await self.exit_stack.enter_async_context(
             ClientSession(self.stdio, self.write)
         )
@@ -46,7 +51,7 @@ class MCPClient:
             [tool.name for tool in response.tools],
         )
 
-    async def get_tools_list(self) -> types.ToolListUnion:
+    async def __get_tools_list(self) -> types.ToolListUnion:
         """
         Obtém a lista de ferramentas disponíveis no servidor MCP
 
@@ -59,7 +64,7 @@ class MCPClient:
             ValueError: Se não houver sessão ativa com o servidor MCP.
         """
 
-        if not self.session:
+        if not self._connected or not self.session:
             raise ValueError("Erro, não conectado a um servidor MCP.")
 
         tools_list = await self.session.list_tools()
@@ -76,7 +81,7 @@ class MCPClient:
             for tool in tools_list.tools
         ]
 
-    def get_gemini_reponse(
+    def __get_gemini_reponse(
         self, contents: list[types.Content], tools: types.ToolListUnion
     ) -> types.GenerateContentResponse:
         """
@@ -112,7 +117,7 @@ class MCPClient:
             str: O texto final gerado pelo modelo Gemini após processar a consulta.
         """
 
-        if not self.session:
+        if not self._connected or not self.session:
             return "Erro, não conectado a um servidor MCP."
 
         final_text: list[str] = []
@@ -124,10 +129,10 @@ class MCPClient:
         )
 
         # Obtém a lista de ferramentas disponíveis no servidor MCP
-        tools_definition = await self.get_tools_list()
+        tools_definition = await self.__get_tools_list()
 
         # Obtém a resposta do Gemini com o histórico da conversa e as ferramentas
-        gemini_response = self.get_gemini_reponse(
+        gemini_response = self.__get_gemini_reponse(
             contents=conversation_history,
             tools=tools_definition,
         )
@@ -173,7 +178,7 @@ class MCPClient:
                     )
 
             # Obtém a resposta do Gemini novamente com o histórico atualizado
-            second_gemini_response = self.get_gemini_reponse(
+            second_gemini_response = self.__get_gemini_reponse(
                 contents=conversation_history,
                 tools=tools_definition,
             )
@@ -223,7 +228,17 @@ class MCPClient:
 
     async def cleanup(self):
         """Limpa recursos e fecha a sessão do cliente MCP"""
-        await self.exit_stack.aclose()
+        if self._connected:
+            print("Fechando a sessão do cliente MCP...")
+            try:
+                await self.exit_stack.aclose()
+                print("Sessão do cliente MCP fechada com sucesso.")
+            except Exception as e:
+                print(f"Erro ao fechar a sessão do cliente MCP: {str(e)}")
+            finally:
+                self._connected = False
+                self.session = None
+                self.exit_stack = AsyncExitStack()
 
 
 async def main():

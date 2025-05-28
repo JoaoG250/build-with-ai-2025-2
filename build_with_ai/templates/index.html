@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini Tool Chat</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+
+    #chat-container {
+      border: 1px solid #ccc;
+      padding: 10px;
+      height: 400px;
+      overflow-y: scroll;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      margin-bottom: 5px;
+    }
+
+    .user-message {
+      text-align: right;
+      color: blue;
+    }
+
+    .ai-message {
+      text-align: left;
+      color: green;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 8px;
+    }
+
+    button {
+      padding: 8px 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Gemini Chat with MCP Tools</h1>
+  <div id="chat-container"></div>
+  <input type="text" id="user-input" placeholder="Type your message...">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    async function sendMessage() {
+      const userInput = document.getElementById('user-input');
+      const chatContainer = document.getElementById('chat-container');
+      const query = userInput.value.trim();
+
+      if (query === "") return;
+
+      const userMessageDiv = document.createElement('div');
+      userMessageDiv.classList.add('message', 'user-message');
+      userMessageDiv.textContent = `You: ${query}`;
+      chatContainer.appendChild(userMessageDiv);
+
+      userInput.value = '';
+
+      const thinkingMessageDiv = document.createElement('div');
+      thinkingMessageDiv.classList.add('message', 'ai-message');
+      thinkingMessageDiv.textContent = 'IA: Pensando...';
+      chatContainer.appendChild(thinkingMessageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ query: query })
+        });
+
+        const data = await response.json();
+
+        chatContainer.removeChild(thinkingMessageDiv);
+
+        const aiMessageDiv = document.createElement('div');
+        aiMessageDiv.classList.add('message', 'ai-message');
+        aiMessageDiv.textContent = `IA: ${data.response || data.error}`;
+        chatContainer.appendChild(aiMessageDiv);
+      } catch (error) {
+        console.error('Error:', error);
+        chatContainer.removeChild(thinkingMessageDiv);
+
+        const errorMessageDiv = document.createElement('div');
+        errorMessageDiv.classList.add('message', 'ai-message');
+        errorMessageDiv.style.color = 'red';
+        errorMessageDiv.textContent = `Erro: Não foi possível obter uma resposta (${error.message})`;
+        chatContainer.appendChild(errorMessageDiv);
+      }
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    document.getElementById('user-input').addEventListener('keypress', function (event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+
+</html>

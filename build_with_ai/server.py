@@ -38,7 +38,7 @@ mcp = FastMCP("build-with-ai", lifespan=app_lifespan)
 @mcp.tool(
     description="Consulta um produto pelo nome e retorna suas informações como uma string formatada"
 )
-def consultar_produto(nome: str) -> str:
+def query_product(nome: str) -> str:
     """
     Consulta um produto pelo nome e retorna suas informações como uma string formatada.
 

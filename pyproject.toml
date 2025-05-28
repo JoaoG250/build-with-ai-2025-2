@@ -5,8 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi>=0.115.12",
     "google-genai>=1.16.1",
+    "jinja2>=3.1.6",
     "mcp[cli]>=1.9.1",
     "python-dotenv>=1.1.0",
     "sqlmodel>=0.0.24",
+    "uvicorn>=0.34.2",
 ]
