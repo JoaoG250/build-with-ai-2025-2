@@ -19,7 +19,8 @@ class AppContext:
 
 @asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
-    """Manage application lifecycle with type-safe context"""
+    """Gerencia o ciclo de vida da aplicação com contexto tipado"""
+
     session = get_session()
     try:
         yield AppContext(session=session)
@@ -35,36 +36,37 @@ mcp = FastMCP("build-with-ai", lifespan=app_lifespan)
 
 
 @mcp.tool(
-    description="Queries a product by name and returns its information as a formatted string"
+    description="Consulta um produto pelo nome e retorna suas informações como uma string formatada"
 )
-def query_product(name: str) -> str:
+def consultar_produto(nome: str) -> str:
     """
-    Queries a product by name and returns its information as a formatted string.
+    Consulta um produto pelo nome e retorna suas informações como uma string formatada.
 
-    This function retrieves or creates a product entry in the database with a fixed bar code and default values.
-    It uses the current session from the request context to interact with the database.
-    The returned string contains the product's name, category, price, expiry date, manufacturer, and bar code.
+    Esta função recupera ou cria uma entrada de produto no banco de dados com um código de barras fixo e valores padrão.
+    Ela utiliza a sessão atual do contexto da requisição para interagir com o banco de dados.
+    A string retornada contém o nome, categoria, preço, data de validade, fabricante e código de barras do produto.
 
     Args:
-        name (str): The name of the product to query.
+        nome (str): O nome do produto a ser consultado.
 
     Returns:
-        str: A formatted string containing the product's information.
+        str: Uma string formatada contendo as informações do produto.
     """
+
     ctx: AppContext = mcp.get_context().request_context.lifespan_context  # type: ignore
-    product, created = get_or_create(
+    product, _ = get_or_create(
         session=ctx.session,
         model=Product,
         bar_code="1234567890123",
         defaults={
             "name": "Coca-Cola",
-            "category": "Soft Drink",
-            "price": 1.5,
+            "category": "Refrigerante",
+            "price": 7.0,
             "expiry_date": datetime(2025, 12, 31),
             "manufacturer": "Example Corp",
         },
     )
-    return f"""Product information:
+    return f"""Informações do produto:
         name: {product.name}
         category: {product.category}
         price: {product.price}
