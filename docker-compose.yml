@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: southamerica-east1-docker.pkg.dev/build-with-ai-2025-461020/cloud-run-repo/build_with_ai:latest
+    image: southamerica-east1-docker.pkg.dev/build-with-ai-2025-461020/cloud-run-repo/build_with_ai:0.0.1
     env_file:
       - .env
     ports:

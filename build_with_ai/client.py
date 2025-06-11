@@ -158,26 +158,24 @@ class MCPClient:
             )
 
             # Adiciona a chamada de função ao histórico da conversa
-            conversation_history.append(
-                types.Content(
-                    role="model", parts=[types.Part(function_call=function_call)]
-                )
+            # Criamos um Content para a chamada de função feita pelo modelo
+            model_response_with_function_call = types.Content(
+                role="model", parts=[types.Part(function_call=function_call)]
             )
+            conversation_history.append(model_response_with_function_call)
 
+            function_call_content = ""
             for content in function_call_result.content:
                 if isinstance(content, MCPTypes.TextContent):
-                    # Adiciona o resultado da função ao histórico da conversa
-                    conversation_history.append(
-                        types.Content(
-                            role="user",
-                            parts=[
-                                types.Part.from_function_response(
-                                    name=function_call.name,
-                                    response={"result": content.text},
-                                )
-                            ],
+                    # Adicionamos a FunctionResponse ao mesmo Content do modelo que fez a chamada da função.
+                    function_call_content = content.text
+                    if model_response_with_function_call.parts:
+                        model_response_with_function_call.parts.append(
+                            types.Part.from_function_response(
+                                name=function_call.name,
+                                response={"result": function_call_content},
+                            )
                         )
-                    )
 
             # Obtém a resposta do Gemini novamente com o histórico atualizado
             second_gemini_response = self.__get_gemini_reponse(
@@ -193,9 +191,18 @@ class MCPClient:
                 conversation_history.append(
                     second_gemini_response.candidates[0].content
                 )
-                if second_gemini_response.text:
+                if (
+                    not second_gemini_response.function_calls
+                    and second_gemini_response.text
+                ):
                     # Adiciona o texto da resposta do Gemini ao resultado final
                     final_text.append(second_gemini_response.text)
+                else:
+                    # Caso haja um problema na segunda chamada do Gemini, adicionamos o resultado da ferramenta MCP
+                    final_text.append(function_call_content)
+            else:
+                # Caso haja um problema na segunda chamada do Gemini, adicionamos o resultado da ferramenta MCP
+                final_text.append(function_call_content)
 
         # Se não houver chamada de função, apenas adiciona o texto da resposta do Gemini
         elif gemini_response.text:
